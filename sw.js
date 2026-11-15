@@ -16,7 +16,7 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
-    await Promise.all(keys.filter(k => ![SHELL_CACHE, VIDEO_CACHE].includes(k)).map(k => caches.delete(k)));
+    await Promise.all(keys.filter(k => k.startsWith('bai8-') && ![SHELL_CACHE, VIDEO_CACHE].includes(k)).map(k => caches.delete(k)));
     await self.clients.claim();
   })());
 });
